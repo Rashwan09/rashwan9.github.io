@@ -15,9 +15,18 @@ h1{font-size:42px;line-height:1.1;margin:14px 0 12px;font-weight:800;letter-spac
 .pts b{color:var(--txt)}
 .slog{font-family:Georgia,serif;font-style:italic;color:var(--brz2);font-size:18px;line-height:1.4;border-left:2px solid var(--brz);padding:2px 0 2px 16px;margin:0 0 20px}
 .trust{color:var(--mut);font-size:13px;margin-top:8px;border-top:1px solid var(--line);padding-top:16px}.trust b{color:var(--txt)}
-.formcard{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.5);border:1px solid var(--line)}
-.formcard iframe{width:100%;height:760px;border:0;background:#fff;display:block}
-@media(max-width:860px){.formcard iframe{height:800px}}
+form{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px 24px;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.ftitle{font-size:19px;font-weight:800;color:#fff;margin:0 0 2px}
+.fsub{color:var(--mut);font-size:13px;margin:0 0 14px}
+label{font-size:12px;color:var(--mut);display:block;margin:12px 0 5px;letter-spacing:.04em}
+input,select{width:100%;padding:12px 14px;border-radius:9px;border:1px solid var(--line);background:#160b06;color:var(--txt);font-size:15px}
+input:focus,select:focus{outline:none;border-color:var(--brz)}
+button{margin-top:18px;width:100%;padding:14px;border:none;border-radius:9px;background:var(--brz);color:#160b06;font-weight:800;font-size:15px;cursor:pointer;letter-spacing:.02em}
+button:hover{background:var(--brz2)}button:disabled{opacity:.6;cursor:wait}
+.fine{color:var(--mut);font-size:11.5px;margin-top:12px;text-align:center}
+.msg{display:none;background:#132015;border:1px solid #2a5a3a;border-radius:16px;padding:26px 24px;color:#cdebd6;font-size:15.5px;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.msg a.big{display:inline-block;background:var(--brz);color:#160b06;font-weight:800;text-decoration:none;padding:12px 20px;border-radius:9px;margin-top:14px}
+.err{display:none;color:#e08f8f;font-size:13px;margin-top:10px;text-align:center}
 .book{max-width:1120px;margin:0 auto;padding:26px 26px 80px}
 .book h2{font-size:28px;margin:0 0 6px;text-align:center}
 .book p{color:var(--mut);text-align:center;margin:0 0 24px;font-size:15px}
@@ -26,7 +35,7 @@ h1{font-size:42px;line-height:1.1;margin:14px 0 12px;font-weight:800;letter-spac
 </style></head><body>
 <div class="hero">
   <div class="left">
-    <div class="kick">◆ Abdelrahman Rashwan · Dubai Real Estate Advisor</div>
+    <div class="kick">&#9670; Abdelrahman Rashwan &middot; Dubai Real Estate Advisor</div>
     <h1>The 2026 Dubai<br>Investment <span class="em">Guide</span>.</h1>
     <p class="lede">Not a brochure — an intelligence brief. Where capital is actually heading in Dubai for 2026, and how to position before the crowd.</p>
     <ul class="pts">
@@ -39,8 +48,31 @@ h1{font-size:42px;line-height:1.1;margin:14px 0 12px;font-weight:800;letter-spac
     <p class="slog">I don't sell properties. I help investors position capital where the market is heading next.</p>
     <div class="trust"><b>Abdelrahman Rashwan</b> — Dubai Real Estate Advisor. Investor-focused. ROI-driven. Data over hype.</div>
   </div>
-  <div class="formcard">
-    <iframe class="airtable-embed" src="https://airtable.com/embed/app81dlrxcqTO7eY3/pagg5aNbhJfvCJBV3/form" frameborder="0" onmousewheel="" title="Get the 2026 Dubai Investment Guide"></iframe>
+  <div class="right">
+    <form id="lead" onsubmit="return subKlaviyo(event)">
+      <div class="ftitle">Get the 2026 Guide</div>
+      <p class="fsub">Data-led, not hype. Drop your details and it's yours.</p>
+      <label for="name">Full name</label>
+      <input id="name" required placeholder="Your name" autocomplete="name">
+      <label for="email">Email</label>
+      <input id="email" type="email" required placeholder="you@email.com" autocomplete="email">
+      <label for="wa">WhatsApp (optional)</label>
+      <input id="wa" placeholder="+971 ..." autocomplete="tel">
+      <label for="interest">What are you optimising for?</label>
+      <select id="interest">
+        <option>Rental income</option><option>Capital growth</option>
+        <option>Golden visa</option><option>Just exploring</option>
+      </select>
+      <button type="submit" id="btn">Send me the guide &rarr;</button>
+      <div class="err" id="err">Something went wrong — please try again.</div>
+      <div class="fine">No spam. Investor-grade insight only. Unsubscribe anytime.</div>
+    </form>
+    <div class="msg" id="thanks">
+      <b>You're in.</b> The guide and my follow-up brief are on their way to your inbox from rashwan@abdorashwan.com.<br>
+      Want it right now?
+      <br><a class="big" href="guide.html">Read the 2026 guide &rarr;</a>
+      <div style="margin-top:12px;font-size:13.5px;color:#9fc4aa">Prefer to talk it through? Book a call below.</div>
+    </div>
   </div>
 </div>
 <hr class="sep">
@@ -50,4 +82,34 @@ h1{font-size:42px;line-height:1.1;margin:14px 0 12px;font-weight:800;letter-spac
   <div class="calendly-inline-widget" data-url="https://calendly.com/rashwan9/dubai-re-investor-strategy-call?hide_gdpr_banner=1&background_color=1c0f09&text_color=f0e6dc&primary_color=e0742a" style="min-width:320px;height:720px"></div>
 </div>
 <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<script>
+function subKlaviyo(ev){
+  ev.preventDefault();
+  var btn=document.getElementById('btn'); btn.disabled=true; btn.textContent='Sending...';
+  document.getElementById('err').style.display='none';
+  var name=document.getElementById('name').value.trim();
+  var first=name.split(/\s+/)[0]||''; var last=name.split(/\s+/).slice(1).join(' ');
+  var payload={data:{type:'subscription',attributes:{custom_source:'Guide landing page',
+    profile:{data:{type:'profile',attributes:{
+      email:document.getElementById('email').value.trim(),
+      first_name:first,last_name:last,
+      properties:{Interest:document.getElementById('interest').value,WhatsApp:document.getElementById('wa').value.trim(),Source:'Guide landing page'}
+    }}}},
+    relationships:{list:{data:{type:'list',id:'WQkuQH'}}}}};
+  fetch('https://a.klaviyo.com/client/subscriptions/?company_id=T2HB7r',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','revision':'2024-10-15'},
+    body:JSON.stringify(payload)
+  }).then(function(r){
+    if(r.status===202||r.ok){
+      document.getElementById('lead').style.display='none';
+      document.getElementById('thanks').style.display='block';
+    }else{ throw new Error('status '+r.status); }
+  }).catch(function(e){
+    btn.disabled=false; btn.textContent='Send me the guide →';
+    document.getElementById('err').style.display='block';
+  });
+  return false;
+}
+</script>
 </body></html>
