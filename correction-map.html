@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The 2026 Correction Map — Abdelrahman Rashwan</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root{
+    --ground:#1C0F09;         /* warm near-black */
+    --panel:#241611;          /* lifted panel */
+    --panel-2:#2C1B14;
+    --accent:#E0742A;         /* burnt orange */
+    --accent-soft:#A85A28;
+    --cool:#3E8EA6;           /* cooling teal */
+    --ink:#F5ECE3;            /* primary text */
+    --ink-2:#CBB9A9;          /* secondary */
+    --ink-3:#8C7A6B;          /* muted */
+    --line:#3A281E;           /* grid / rule */
+    --line-soft:#2E2018;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;background:var(--ground);color:var(--ink);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:860px;margin:0 auto;padding:0 28px;}
+  h1,h2,h3,.serif{font-family:'Playfair Display',Georgia,'Times New Roman',serif;}
+  .kicker{font-family:'Inter',sans-serif;font-weight:600;letter-spacing:.28em;
+    text-transform:uppercase;font-size:11px;color:var(--accent);}
+  a{color:var(--accent);}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:88px 0 56px;border-bottom:1px solid var(--line);
+    background:radial-gradient(120% 90% at 80% 0%, rgba(224,116,42,.10), transparent 60%);}
+  .hero .diamond{color:var(--accent);letter-spacing:.3em;font-size:12px;font-weight:600;
+    text-transform:uppercase;margin-bottom:22px;}
+  .hero h1{font-size:clamp(38px,6.4vw,66px);line-height:1.04;font-weight:700;margin:0 0 20px;
+    letter-spacing:-.5px;}
+  .hero h1 em{font-style:italic;color:var(--accent);}
+  .hero .sub{font-size:19px;color:var(--ink-2);max-width:620px;font-weight:300;}
+  .byline{margin-top:34px;font-size:14px;color:var(--ink-3);letter-spacing:.02em;}
+  .byline b{color:var(--ink);font-weight:500;}
+
+  /* ---------- STAT TILES ---------- */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:40px 0 8px;}
+  .tile{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+    padding:22px 18px;position:relative;overflow:hidden;}
+  .tile:before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);}
+  .tile .n{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:var(--ink);
+    line-height:1;letter-spacing:-.5px;}
+  .tile .n .u{font-size:16px;color:var(--accent);font-weight:500;margin-left:2px;}
+  .tile .l{margin-top:9px;font-size:12px;color:var(--ink-3);line-height:1.45;letter-spacing:.02em;}
+  @media(max-width:680px){.stats{grid-template-columns:repeat(2,1fr);}}
+
+  /* ---------- SECTIONS ---------- */
+  section.blk{padding:56px 0;border-bottom:1px solid var(--line-soft);}
+  .partno{font-family:'Inter';font-weight:600;letter-spacing:.24em;font-size:11px;
+    color:var(--accent);text-transform:uppercase;}
+  h2{font-size:clamp(27px,4.4vw,40px);font-weight:700;margin:12px 0 8px;line-height:1.12;letter-spacing:-.4px;}
+  h2 em{font-style:italic;color:var(--accent);}
+  .lede{font-size:18px;color:var(--ink-2);margin:0 0 26px;font-weight:300;}
+  p{margin:0 0 18px;color:var(--ink-2);font-size:16.5px;}
+  p strong,li strong{color:var(--ink);font-weight:500;}
+  .pull{font-family:'Playfair Display',serif;font-style:italic;font-size:24px;line-height:1.4;
+    color:var(--ink);border-left:3px solid var(--accent);padding:6px 0 6px 24px;margin:30px 0;font-weight:500;}
+
+  /* ---------- FIGURE / CHART ---------- */
+  figure{margin:32px 0;background:var(--panel);border:1px solid var(--line);border-radius:16px;
+    padding:26px 26px 20px;}
+  figure .ftitle{font-family:'Playfair Display',serif;font-size:19px;font-weight:600;color:var(--ink);margin-bottom:4px;}
+  figure .fsub{font-size:13px;color:var(--ink-3);margin-bottom:20px;}
+  figcaption{margin-top:16px;font-size:11.5px;color:var(--ink-3);border-top:1px solid var(--line-soft);
+    padding-top:12px;line-height:1.5;}
+  .barrow{display:flex;align-items:center;gap:14px;margin:11px 0;}
+  .barrow .cat{width:150px;flex:none;font-size:13.5px;color:var(--ink-2);text-align:right;}
+  .bartrack{flex:1;height:26px;position:relative;background:var(--line-soft);border-radius:6px;overflow:hidden;}
+  .barfill{height:100%;border-radius:6px 0 0 6px;position:relative;transition:width .9s cubic-bezier(.2,.7,.2,1);}
+  .barval{width:70px;flex:none;font-family:'Playfair Display',serif;font-weight:700;font-size:16px;text-align:left;}
+
+  /* two dubais */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:26px 0;}
+  .col{border-radius:16px;padding:24px;border:1px solid var(--line);}
+  .col.up{background:linear-gradient(160deg,rgba(224,116,42,.14),rgba(224,116,42,.03));border-color:rgba(224,116,42,.4);}
+  .col.dn{background:linear-gradient(160deg,rgba(62,142,166,.13),rgba(62,142,166,.02));border-color:rgba(62,142,166,.34);}
+  .col .arrow{font-size:30px;line-height:1;}
+  .col.up .arrow{color:var(--accent);}
+  .col.dn .arrow{color:var(--cool);}
+  .col h3{font-family:'Playfair Display',serif;font-size:21px;margin:10px 0 4px;color:var(--ink);font-weight:700;}
+  .col .tag{font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;}
+  .col.up .tag{color:var(--accent);} .col.dn .tag{color:var(--cool);}
+  .col ul{list-style:none;padding:0;margin:16px 0 0;}
+  .col li{font-size:14px;color:var(--ink-2);padding:9px 0;border-top:1px solid var(--line-soft);display:flex;justify-content:space-between;gap:12px;}
+  .col li:first-child{border-top:none;}
+  .col li b{font-family:'Playfair Display',serif;font-weight:700;white-space:nowrap;}
+  .col.up li b{color:var(--accent);} .col.dn li b{color:var(--cool);}
+  @media(max-width:680px){.split{grid-template-columns:1fr;}}
+
+  /* supply columns */
+  .cols{display:flex;align-items:flex-end;justify-content:center;gap:64px;height:250px;
+    padding:10px 0 0;border-bottom:1px solid var(--line);}
+  .colbar{width:120px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;}
+  .colbar .bar{width:100%;border-radius:8px 8px 0 0;position:relative;transition:height 1s cubic-bezier(.2,.7,.2,1);}
+  .colbar .v{font-family:'Playfair Display',serif;font-weight:700;font-size:22px;margin-bottom:8px;}
+  .colbar .yr{margin-top:12px;font-size:14px;color:var(--ink-2);font-weight:500;}
+  .colbar .yr span{display:block;font-size:11px;color:var(--ink-3);margin-top:2px;}
+
+  /* donut */
+  .donutwrap{display:flex;align-items:center;gap:36px;flex-wrap:wrap;justify-content:center;}
+  .legend{display:flex;flex-direction:column;gap:14px;}
+  .legend .li{display:flex;align-items:center;gap:12px;}
+  .legend .sw{width:14px;height:14px;border-radius:4px;flex:none;}
+  .legend .li .t{font-size:14px;color:var(--ink-2);}
+  .legend .li .t b{display:block;font-family:'Playfair Display',serif;font-size:22px;color:var(--ink);font-weight:700;}
+
+  /* checklist */
+  .check{counter-reset:c;margin:24px 0 0;}
+  .check .item{display:flex;gap:18px;padding:16px 0;border-top:1px solid var(--line-soft);}
+  .check .item:first-child{border-top:none;}
+  .check .num{counter-increment:c;flex:none;width:38px;height:38px;border-radius:10px;
+    background:var(--panel-2);border:1px solid var(--line);color:var(--accent);
+    font-family:'Playfair Display',serif;font-weight:700;font-size:18px;display:flex;align-items:center;justify-content:center;}
+  .check .num:before{content:counter(c);}
+  .check .q b{color:var(--ink);font-weight:600;font-size:16px;}
+  .check .q p{margin:4px 0 0;font-size:14.5px;}
+
+  /* timeline */
+  .timeline{position:relative;margin:30px 0 6px;padding-left:6px;}
+  .tl-track{position:absolute;left:14px;top:8px;bottom:8px;width:2px;background:linear-gradient(var(--accent),var(--cool));}
+  .tl-item{position:relative;padding:0 0 26px 44px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-dot{position:absolute;left:7px;top:3px;width:16px;height:16px;border-radius:50%;background:var(--ground);border:3px solid var(--accent);}
+  .tl-item.cool .tl-dot{border-color:var(--cool);}
+  .tl-item h3{font-family:'Playfair Display',serif;font-size:18px;margin:0 0 2px;color:var(--ink);font-weight:700;}
+  .tl-item p{margin:0;font-size:14.5px;}
+
+  /* CTA */
+  .cta{margin:12px 0 0;text-align:center;padding:64px 28px;
+    background:radial-gradient(120% 120% at 50% 0%, rgba(224,116,42,.16), var(--panel) 62%);
+    border:1px solid rgba(224,116,42,.34);border-radius:20px;}
+  .cta h2{margin:0 0 14px;}
+  .cta p{max-width:520px;margin:0 auto 28px;color:var(--ink-2);}
+  .btn{display:inline-block;background:var(--accent);color:#1C0F09;font-weight:600;
+    font-family:'Inter';font-size:16px;letter-spacing:.01em;text-decoration:none;
+    padding:16px 38px;border-radius:12px;transition:transform .2s,box-shadow .2s;
+    box-shadow:0 10px 30px rgba(224,116,42,.25);}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(224,116,42,.35);}
+
+  footer{padding:46px 0 70px;color:var(--ink-3);font-size:12.5px;line-height:1.6;}
+  footer .disc{border-top:1px solid var(--line-soft);padding-top:22px;margin-top:8px;}
+
+  /* tooltip */
+  #tt{position:fixed;pointer-events:none;background:#120a06;border:1px solid var(--accent);
+    color:var(--ink);font-size:12.5px;padding:8px 11px;border-radius:8px;opacity:0;transition:opacity .12s;
+    z-index:50;max-width:220px;box-shadow:0 8px 24px rgba(0,0,0,.5);}
+  .hoverable{cursor:default;}
+  @media print{
+    body{background:#fff;color:#1a1a1a;}
+    .hero,section.blk,figure,.col,.cta{break-inside:avoid;}
+  }
+
+  /* ===== v2 skyline hero ===== */
+  .hero2{position:relative;background:#0C0704 url('https://uploads.postiz.com/uYb3QpyzvW.jpg') center/cover no-repeat;border-bottom:1px solid var(--line);}
+  .hero2-scrim{position:absolute;inset:0;background:linear-gradient(105deg,rgba(12,7,4,.96) 0%,rgba(12,7,4,.82) 40%,rgba(12,7,4,.42) 70%,rgba(12,7,4,.62) 100%);}
+  .hero2-in{position:relative;z-index:2;padding:96px 28px 58px;}
+  .hero2 .diamond{color:var(--accent);letter-spacing:.3em;font-size:12px;font-weight:600;text-transform:uppercase;margin-bottom:22px;}
+  .hero2 h1{font-family:'Playfair Display',serif;font-size:clamp(40px,6.6vw,68px);line-height:1.03;font-weight:700;margin:0 0 20px;letter-spacing:-.5px;}
+  .hero2 h1 em{font-style:italic;color:var(--accent);}
+  .hero2 .sub{font-size:19px;color:#E4D8CB;max-width:600px;font-weight:300;}
+  .hero2 .byline{margin-top:32px;font-size:14px;color:#b5a596;letter-spacing:.02em;}
+  .hero2 .byline b{color:#F5ECE3;font-weight:500;}
+  .hero2 .stats{margin-top:40px;}
+  .hero2 .tile{background:rgba(20,12,8,.66);border:1px solid rgba(224,116,42,.28);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);}
+  /* CTA on skyline */
+  .cta{background:linear-gradient(rgba(16,9,5,.83),rgba(16,9,5,.93)),url('https://uploads.postiz.com/uYb3QpyzvW.jpg') center/cover;border:1px solid rgba(224,116,42,.4)!important;}
+  /* footer portrait */
+  .foto{width:70px;height:70px;border-radius:50%;object-fit:cover;object-position:50% 18%;float:left;margin:2px 18px 8px 0;border:2px solid var(--accent);}
+</style>
+</head>
+<body>
+<div id="tt"></div>
+
+<!-- HERO -->
+<header class="hero2">
+  <div class="hero2-scrim"></div>
+  <div class="wrap hero2-in">
+    <div class="diamond">◆ &nbsp;The 2026 Dubai Investment Series</div>
+    <h1>The 2026<br><em>Correction Map</em></h1>
+    <div class="sub">Where Dubai's smart capital is positioning before the 2027 supply peak — read from the data, not the headlines.</div>
+    <div class="byline">By <b>Abdelrahman Rashwan</b> &nbsp;·&nbsp; Dubai Real Estate Advisor &nbsp;·&nbsp; Host of <b>The Entrepreneur Show</b><br>Data as of Q2 2026</div>
+
+    <div class="stats">
+      <div class="tile hoverable" data-tt="Total residential sales value, Q2 2026 (DLD). Down ~45% YoY — the first genuine cooling in years.">
+        <div class="n">84.9<span class="u">B</span></div><div class="l">AED, Q2 2026 residential sales value</div>
+      </div>
+      <div class="tile hoverable" data-tt="Roughly 34,850 residential transactions in Q2 2026 — down ~31% year-on-year.">
+        <div class="n">34.9<span class="u">K</span></div><div class="l">Transactions in the quarter (−31% YoY)</div>
+      </div>
+      <div class="tile hoverable" data-tt="Off-plan held 76% of activity while the secondary market fell ~59% YoY.">
+        <div class="n">76<span class="u">%</span></div><div class="l">Share still going to off-plan</div>
+      </div>
+      <div class="tile hoverable" data-tt="Palm Jumeirah Garden Homes rose ~37% YoY — prime, scarce assets kept climbing through the cooling.">
+        <div class="n">+37<span class="u">%</span></div><div class="l">Palm villas, YoY — prime kept rising</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- INTRO -->
+<section class="blk">
+  <p style="font-size:18px;color:var(--ink)"><strong>A note before you read this.</strong></p>
+  <p>I don't sell properties. I help investors position capital where the market is heading next. So this isn't a brochure — no "dream homes," no countdown timers, no "now is the best time to buy." This is the same read of the market I give the private-wealth clients and family offices I work with, written down, with the numbers on the table.</p>
+  <p>Dubai just cooled for the first time in years. Most agents are pretending it didn't happen. A few are quietly panicking. The investors I respect are doing neither — they're reading the divergence underneath the headline and deciding <strong>which half of the market</strong> to move into before 2027 reprices everything.</p>
+  <p class="pull">That's what this report is: the map.</p>
+</section>
+
+<!-- PART 1 -->
+<section class="blk">
+  <div class="partno">Part 01</div>
+  <h2>The cooling, in <em>plain numbers</em></h2>
+  <p class="lede">Let's start with the headline everyone's avoiding — then the part they leave out.</p>
+  <p>In Q2 2026, Dubai recorded roughly <strong>AED 84.9 billion</strong> in residential sales across about <strong>34,850 transactions</strong>. Against the same quarter last year, that's a drop of around <strong>45% in value and 31% in volume</strong> — by most honest accounts, Dubai's first genuine cooling in years.</p>
+
+  <figure>
+    <div class="ftitle">The shakeout — Q2 2026 activity vs. a year earlier</div>
+    <div class="fsub">Year-on-year change, by segment. Longer bar = sharper pull-back.</div>
+    <div class="barrow hoverable" data-tt="Total sales value fell ~45% versus Q2 2025.">
+      <div class="cat">Total sales value</div><div class="bartrack"><div class="barfill" style="width:76%;background:var(--accent)"></div></div><div class="barval" style="color:var(--accent)">−45%</div>
+    </div>
+    <div class="barrow hoverable" data-tt="Transaction volume fell ~31% YoY — fewer deals, as speculative buyers stepped back.">
+      <div class="cat">Transaction volume</div><div class="bartrack"><div class="barfill" style="width:52%;background:var(--accent)"></div></div><div class="barval" style="color:var(--accent)">−31%</div>
+    </div>
+    <div class="barrow hoverable" data-tt="The secondary (ready) market fell ~59% YoY — the froth came off resale first.">
+      <div class="cat">Secondary market</div><div class="bartrack"><div class="barfill" style="width:100%;background:var(--accent)"></div></div><div class="barval" style="color:var(--accent)">−59%</div>
+    </div>
+    <div class="barrow hoverable" data-tt="Prime luxury (AED 15m+) transactions fell ~59% YoY, though off-plan luxury actually rose 27%.">
+      <div class="cat">Luxury (AED&nbsp;15m+)</div><div class="bartrack"><div class="barfill" style="width:100%;background:var(--accent)"></div></div><div class="barval" style="color:var(--accent)">−59%</div>
+    </div>
+    <figcaption>Source: Dubai Land Department transaction data via betterhomes Q2 2026 Dubai Residential Market Report. Figures approximate and quarter-specific.</figcaption>
+  </figure>
+
+  <p>If you stop there, you'll draw the wrong conclusion. Here's the part they leave out: <strong>prices per square foot rose across the majority of tracked communities in the same quarter.</strong> Fewer deals, but not cheaper deals — in the right areas, the opposite. Villa communities led the gains; Palm Jumeirah's Garden Homes were up around 37% year-on-year.</p>
+  <p>So volume fell hard while prime pricing held or climbed. That is not the signature of a crash — a crash is falling prices and forced sellers. What we have is a <strong>shakeout</strong>: the flippers and the tourists who bought a headline in 2024 stepping back. When they step back, counts fall — but the assets serious capital wants don't get cheaper.</p>
+  <p class="pull">The cooling isn't the top. It's the shakeout that separates tourists from investors.</p>
+</section>
+
+<!-- PART 2 -->
+<section class="blk">
+  <div class="partno">Part 02</div>
+  <h2>The <em>two Dubais</em></h2>
+  <p class="lede">If you take one practical thing from this report, take this: there is no single "Dubai market" right now. There are two — and the gap between them is widening.</p>
+
+  <div class="split">
+    <div class="col up hoverable" data-tt="Land-scarce, prime assets: supply can't be added, so pricing power sits with the owner. Still appreciating.">
+      <div class="arrow">▲</div>
+      <div class="tag">Still climbing</div>
+      <h3>Dubai A — Prime &amp; Scarce</h3>
+      <ul>
+        <li>Palm Jumeirah villas <b>+37% YoY</b></li>
+        <li>Prime price / sq ft <b>Rising</b></li>
+        <li>New supply you can add <b>~None</b></li>
+      </ul>
+    </div>
+    <div class="col dn hoverable" data-tt="Apartment-heavy, new-supply corridors: absorbing the handover wave, giving buyers and tenants leverage.">
+      <div class="arrow">▼</div>
+      <div class="tag">Softening</div>
+      <h3>Dubai B — New-Supply Corridors</h3>
+      <ul>
+        <li>Apartments, QoQ <b>−4%</b></li>
+        <li>Select locations <b>−5 to −10%</b></li>
+        <li>New-let rents <b>−8 to −10%</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <p>Same city, opposite trajectories. The mistake I watch investors make over and over is reading the <strong>average</strong> — a blend of a market that's climbing and one that's cooling, describing neither. Buy the average and you've bought exposure to the wrong half at the price of the right half.</p>
+  <p><strong>The practical filter:</strong> before you look at a single floor plan, ask which Dubai the asset lives in — land-scarce and prime, or new-supply and replaceable? That one question does more for your outcome than any amount of unit-level analysis.</p>
+
+  <figure>
+    <div class="ftitle">Where the volume still goes</div>
+    <div class="fsub">Share of Q2 2026 transactions — off-plan resilience vs. secondary weakness.</div>
+    <div class="donutwrap">
+      <svg width="200" height="200" viewBox="0 0 200 200" role="img" aria-label="Off-plan 76 percent, secondary 24 percent">
+        <circle cx="100" cy="100" r="76" fill="none" stroke="var(--line-soft)" stroke-width="30"/>
+        <circle class="hoverable" data-tt="Off-plan: 76% of Q2 2026 activity." cx="100" cy="100" r="76" fill="none" stroke="var(--accent)" stroke-width="30"
+          stroke-dasharray="363 114" stroke-dashoffset="0" transform="rotate(-90 100 100)" stroke-linecap="butt"/>
+        <circle class="hoverable" data-tt="Secondary / ready market: 24% of activity, down ~59% YoY." cx="100" cy="100" r="76" fill="none" stroke="var(--cool)" stroke-width="30"
+          stroke-dasharray="114 363" stroke-dashoffset="-363" transform="rotate(-90 100 100)" stroke-linecap="butt"/>
+        <text x="100" y="94" text-anchor="middle" fill="var(--ink)" font-family="Playfair Display,serif" font-size="34" font-weight="700">76%</text>
+        <text x="100" y="116" text-anchor="middle" fill="var(--ink-3)" font-family="Inter,sans-serif" font-size="12">off-plan</text>
+      </svg>
+      <div class="legend">
+        <div class="li"><span class="sw" style="background:var(--accent)"></span><span class="t"><b>76%</b>Off-plan</span></div>
+        <div class="li"><span class="sw" style="background:var(--cool)"></span><span class="t"><b>24%</b>Secondary / ready</span></div>
+      </div>
+    </div>
+    <figcaption>Source: betterhomes Q2 2026. Off-plan held its share even as overall volume cooled; secondary transactions fell ~59% YoY.</figcaption>
+  </figure>
+</section>
+
+<!-- PART 3 -->
+<section class="blk">
+  <div class="partno">Part 03</div>
+  <h2>The <em>2027 clock</em></h2>
+  <p class="lede">Now the timing — and it's set by one number.</p>
+  <p>Dubai is delivering an enormous amount of new housing. Roughly <strong>74,100 homes complete in 2026</strong>, and completions are projected to <strong>peak at around 160,700 units in 2027</strong> — more than double this year's handovers, landing in a single year.</p>
+
+  <figure>
+    <div class="ftitle">The supply wave — projected completions</div>
+    <div class="fsub">New residential units delivered per year. 2027 is the peak the whole market is bracing for.</div>
+    <div class="cols">
+      <div class="colbar">
+        <div class="v" style="color:var(--accent-soft)">~74,100</div>
+        <div class="bar hoverable" data-tt="~74,100 homes projected to complete in 2026." style="height:46%;background:var(--accent-soft)"></div>
+        <div class="yr">2026<span>this year's handovers</span></div>
+      </div>
+      <div class="colbar">
+        <div class="v" style="color:var(--accent)">~160,700</div>
+        <div class="bar hoverable" data-tt="~160,700 units projected for 2027 — the supply peak. Lands hardest on new-supply corridors." style="height:100%;background:var(--accent)"></div>
+        <div class="yr">2027<span>the peak</span></div>
+      </div>
+    </div>
+    <figcaption>Source: Savills / betterhomes Q2 2026 supply outlook. Projections; developers are already extending delivery timelines from three years toward four.</figcaption>
+  </figure>
+
+  <p>You don't need a model to see what a supply peak does. That much inventory at once lands hardest in <strong>Dubai B</strong> — it pushes rents down further, hands negotiating leverage to buyers, and stretches exit times on replaceable units. For <strong>Dubai A</strong>, the land-scarce half, it barely registers — you can't flood the market with more of something that can't be built.</p>
+  <p>So the clock works two ways, and both favour a positioned investor: in Dubai B, 2027 is a reason to <strong>wait and negotiate</strong> — or avoid replaceable stock entirely. In Dubai A, the next <strong>six to nine months</strong> — while the shakeout has thinned competition and before the peak fully prices in — is a positioning window.</p>
+  <p class="pull">The crowd always comes back. It came back after 2020. The question is whether you're already positioned when it does — or bidding against it.</p>
+</section>
+
+<!-- PART 4 -->
+<section class="blk">
+  <div class="partno">Part 04</div>
+  <h2>The smart-capital <em>checklist</em></h2>
+  <p class="lede">The questions I actually run through before I'll recommend anyone deploy capital in this market. Deliberately unglamorous — that's the point.</p>
+  <div class="check">
+    <div class="item"><div class="num"></div><div class="q"><b>Which Dubai is this?</b><p>Land-scarce prime, or new-supply replaceable? If you can't answer this cleanly, stop here.</p></div></div>
+    <div class="item"><div class="num"></div><div class="q"><b>Does the yield cushion the supply risk?</b><p>In new-supply corridors, the rent has to compensate you for the softening ahead. If the numbers only work on appreciation, you're speculating.</p></div></div>
+    <div class="item"><div class="num"></div><div class="q"><b>Who's my buyer when I exit?</b><p>For a prime, scarce asset the buyer is obvious. For a unit competing with 160,000 handovers, it isn't. Plan the exit before the entry.</p></div></div>
+    <div class="item"><div class="num"></div><div class="q"><b>What's my hold?</b><p>This cycle rewards patience. Under three years in Dubai B and the 2027 wave is working against you.</p></div></div>
+    <div class="item"><div class="num"></div><div class="q"><b>Am I buying the average, or the specific?</b><p>The city-wide number is noise. The community, the building, the floor, the developer's track record — that's the signal.</p></div></div>
+    <div class="item"><div class="num"></div><div class="q"><b>Motivated seller, or marketing deadline?</b><p>Real leverage in a shakeout comes from the former. Manufactured urgency comes from the latter.</p></div></div>
+  </div>
+  <p style="margin-top:26px">If a property survives all six, it's worth a conversation. Most don't. That's exactly why this is a good market — the filter finally does something.</p>
+</section>
+
+<!-- PART 5 -->
+<section class="blk">
+  <div class="partno">Part 05</div>
+  <h2>The <em>window</em></h2>
+  <p>Dubai didn't break in 2026. It exhaled. The speculative froth came off, volumes normalised from an unsustainable peak, and the market split cleanly into a prime half that's still compounding and a new-supply half that's giving buyers leverage for the first time in years — with a 2027 supply peak set to sharpen that divide further.</p>
+
+  <div class="timeline">
+    <div class="tl-track"></div>
+    <div class="tl-item"><div class="tl-dot"></div><h3>Now — H2 2026</h3><p>The shakeout has thinned the field. Competition down, negotiating room up. Prime still scarce.</p></div>
+    <div class="tl-item"><div class="tl-dot"></div><h3>Next 6–9 months</h3><p>The positioning window: accumulate the right half, on the right terms, before the crowd reads the same map.</p></div>
+    <div class="tl-item cool"><div class="tl-dot"></div><h3>2027 — the supply peak</h3><p>~160,700 units land. Leverage in new-supply corridors; scarcity holds in prime. The divide prices in.</p></div>
+  </div>
+
+  <p style="margin-top:28px">For the disciplined investor, that combination isn't a reason to wait on the sidelines. It's a reason to <strong>position, deliberately, now</strong> — in the right half, on the right terms, before the crowd prices it in. That's the whole game: position capital before the crowd, not with it.</p>
+</section>
+
+<!-- CTA -->
+<section class="blk" style="border:none">
+  <div class="cta">
+    <div class="kicker">Your positioning call</div>
+    <h2 style="font-size:34px">Which half does <em>your</em> capital belong in?</h2>
+    <p>No pitch. We look at your position, budget and horizon, the segments that actually fit — and whether now is your window, or whether patience serves you better.</p>
+    <a class="btn" href="https://calendly.com/rashwan9/dubai-re-investor-strategy-call">Book a strategy call →</a>
+  </div>
+</section>
+
+<footer>
+  <img class="foto" src="https://uploads.postiz.com/uYb3QpyzvW.jpg" alt="Abdelrahman Rashwan">
+  <div>Abdelrahman Rashwan is a Dubai real estate advisor with nine years navigating the market's cycles, and host of <b>The Entrepreneur Show</b>. He works with private investors and family offices on strategic, ROI-driven positioning across Dubai and the UAE.</div>
+  <div class="disc"><strong>Sources:</strong> Dubai Land Department transaction data; betterhomes Q2 2026 Dubai Residential Market Report; Savills Q2 2026 Dubai Residential Market. Figures are quarter-specific and provided for information only. This report is not investment advice and makes no guarantee of future performance.</div>
+</footer>
+</div>
+
+<script>
+  var tt=document.getElementById('tt');
+  function show(e){var t=e.currentTarget.getAttribute('data-tt');if(!t)return;tt.textContent=t;tt.style.opacity=1;move(e);}
+  function move(e){var x=(e.touches?e.touches[0].clientX:e.clientX),y=(e.touches?e.touches[0].clientY:e.clientY);
+    var w=tt.offsetWidth,h=tt.offsetHeight;var px=x+16,py=y+16;
+    if(px+w>window.innerWidth-8)px=x-w-16; if(py+h>window.innerHeight-8)py=y-h-16;
+    tt.style.left=px+'px';tt.style.top=py+'px';}
+  function hide(){tt.style.opacity=0;}
+  document.querySelectorAll('.hoverable').forEach(function(el){
+    el.addEventListener('mouseenter',show);el.addEventListener('mousemove',move);el.addEventListener('mouseleave',hide);
+  });
+  // animate bars/columns on load
+  window.addEventListener('load',function(){
+    document.querySelectorAll('.barfill').forEach(function(b){var w=b.style.width;b.style.width='0';requestAnimationFrame(function(){requestAnimationFrame(function(){b.style.width=w;});});});
+  });
+</script>
+</body>
+</html>
